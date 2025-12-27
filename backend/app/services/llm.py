@@ -17,6 +17,7 @@ def _mock_json_output(prompt: str) -> str:
 def _call_ollama(prompt: str) -> str:
     model = settings.OLLAMA_MODEL
     url = "http://127.0.0.1:11434/api/generate"
+    
 
     payload = {
         "model": model,
