@@ -10,8 +10,14 @@ structured, learnable vocabulary and grammar units.
 - Structured JSON output for downstream usage
 
 ## Run
-- anaconda shell
+Backend
+- Anaconda shell
 - conda activate jpread
 - direct to /backend
 - uvicorn app.main:app --reload --port 8000
 - open http://127.0.0.1:8000/docs
+Frontend
+- terminal
+- direct to /frontend
+- npm run dev
+- open http://localhost:3000
