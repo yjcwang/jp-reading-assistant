@@ -1,36 +1,36 @@
 "use client";
 
 import React from "react";
-import type { ExtractResponse } from "@/lib/types";
+import type { AnalyzeResponse } from "@/lib/types";
 
 type Props = {
-  data: ExtractResponse;
+  data: AnalyzeResponse;
   error: string | null;
 };
 
 export function ResultPanel({ data, error }: Props) {
-  return (
-    <div style={card}>
+  return ( 
+    <div style={card}> {/*Information display*/}
       <div style={rowBetween}>
         <div style={{ fontWeight: 700 }}>结果</div>
-        <div style={{ opacity: 0.7, fontSize: 13 }}>
-          {data.vocab.length} vocab · {data.grammar.length} grammar
+        <div style={{ opacity: 0.7, fontSize: 13 }}> 
+          {data.vocab.length} vocab · {data.grammar.length} grammar  
         </div>
       </div>
-
-      {error ? <div style={errorBox}>Error: {error}</div> : null}
+      
+      {error ? <div style={errorBox}>Error: {error}</div> : null} {/*Error message*/}
 
       <div style={twoCols}>
         <div>
           <div style={sectionTitle}>单词</div>
-          <ul style={list}>
-            {data.vocab.length === 0 ? (
+          <ul style={list}> {/*Branch if there is any vocab data*/}
+            {data.vocab.length === 0 ? ( 
               <li style={empty}>暂无</li>
             ) : (
               data.vocab.map((v, i) => (
                 <li key={i} style={item}>
                   <div style={{ fontWeight: 700 }}>{v.surface} {v.reading ? <span style={muted}>({v.reading})</span> : null}</div>
-                  {v.meaning_zh ? <div style={muted}>{v.meaning_zh}</div> : null}
+                  {v.meaning_en ? <div style={muted}>{v.meaning_en}</div> : null}
                   {v.why ? <div style={mutedSmall}>{v.why}</div> : null}
                 </li>
               ))
@@ -47,9 +47,9 @@ export function ResultPanel({ data, error }: Props) {
               data.grammar.map((g, i) => (
                 <li key={i} style={item}>
                   <div style={{ fontWeight: 700 }}>{g.pattern}</div>
-                  {g.meaning_zh ? <div style={muted}>{g.meaning_zh}</div> : null}
-                  {g.example ? <div style={example}>{g.example}</div> : null}
-                  {g.note ? <div style={mutedSmall}>{g.note}</div> : null}
+                  {g.explanation_en ? <div style={muted}>{g.explanation_en}</div> : null}
+                  {g.example_from_text ? <div style={example}>{g.example_from_text}</div> : null}
+                  {g.notes ? <div style={mutedSmall}>{g.notes}</div> : null}
                 </li>
               ))
             )}

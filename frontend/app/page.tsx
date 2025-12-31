@@ -3,29 +3,30 @@
 import React, { useState } from "react";
 import { InputPanel } from "@/components/InputPanel";
 import { ResultPanel } from "@/components/ResultPanel";
-import { extract } from "@/lib/api";
-import type { ExtractResponse, Level } from "@/lib/types";
+import { analyze } from "@/lib/api";
+import type { AnalyzeResponse, Level } from "@/lib/types";
 
 export default function Page() {
+  // create data and keep state
   const [level, setLevel] = useState<Level>("N3");
 
   const [draftText, setDraftText] = useState("");
   const [lockedText, setLockedText] = useState<string | null>(null);
 
-  const [data, setData] = useState<ExtractResponse>({ vocab: [], grammar: [] });
+  const [data, setData] = useState<AnalyzeResponse>({ vocab: [], grammar: [] });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function onConfirm() {
     const text = draftText.trim();
-    if (!text) return;
+    if (!text) return; // check no empty text
 
     setLockedText(text);
-    setLoading(true);
+    setLoading(true); // loading until data extraction finished
     setError(null);
 
     try {
-      const res = await extract(text, level);
+      const res = await analyze(text, level); // api engaged extract text
       setData(res);
     } catch (e: any) {
       setError(e?.message ?? "Unknown error");
@@ -36,6 +37,7 @@ export default function Page() {
   }
 
   function onClear() {
+    // set all state back to initial
     setDraftText("");
     setLockedText(null);
     setData({ vocab: [], grammar: [] });

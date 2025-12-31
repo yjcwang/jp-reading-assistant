@@ -5,19 +5,19 @@ export type Level = "N5" | "N4" | "N3" | "N2" | "N1";
 export type VocabItem = {
   surface: string;
   reading?: string;
-  meaning_zh?: string;
-  why?: string;
+  meaning_en: string;
+  why: string;
 };
 
 export type GrammarItem = {
   pattern: string;
-  meaning_zh?: string;
-  example?: string;
-  note?: string;
+  explanation_en: string;
+  example_from_text: string;
+  notes?: string;
 };
-// todo:Change
+// todo:Change optional
 
-export type ExtractResponse = {
+export type AnalyzeResponse = {
   vocab: VocabItem[];
   grammar: GrammarItem[];
 };

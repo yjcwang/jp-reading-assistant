@@ -29,13 +29,13 @@ export function InputPanel({
   onConfirm,
   onClear,
 }: Props) {
-  const canConfirm = !loading && draftText.trim().length > 0;
+  const canConfirm = !loading && draftText.trim().length > 0; // control if can use confirm buttom
 
   return (
     <div style={card}>
       <div style={rowBetween}>
         <div style={{ fontWeight: 700 }}>输入</div>
-        <select
+        <select // level selcetion
           value={level}
           onChange={(e) => setLevel(e.target.value as Level)}
           disabled={loading}
@@ -49,7 +49,7 @@ export function InputPanel({
         </select>
       </div>
 
-      {!lockedText ? (
+      {!lockedText ? ( // two branch
         <>
           <textarea
             value={draftText}
