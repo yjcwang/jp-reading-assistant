@@ -38,7 +38,14 @@ export async function analyze(text: string, level: Level): Promise<AnalyzeRespon
   }; */
 
   // 接后端时改成：
-  const resp = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/extract", {
+  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+  if (!BASE_URL) {
+     throw new Error("NEXT_PUBLIC_BACKEND_URL is not defined");
+  }
+
+
+  const resp = await fetch(BASE_URL + "/api/analyze", {
      method: "POST",
      headers: { "Content-Type": "application/json" },
      body: JSON.stringify({ text, level }),
