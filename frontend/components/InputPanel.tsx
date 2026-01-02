@@ -34,7 +34,7 @@ export function InputPanel({
   return (
     <div style={card}>
       <div style={rowBetween}>
-        <div style={{ fontWeight: 700 }}>输入</div>
+        <div style={{ fontWeight: 700 }}>Input</div>
         <select // level selcetion
           value={level}
           onChange={(e) => setLevel(e.target.value as Level)}
@@ -54,13 +54,13 @@ export function InputPanel({
           <textarea
             value={draftText}
             onChange={(e) => setDraftText(e.target.value)}
-            placeholder="粘贴文本…"
+            placeholder="Input text…"
             style={textarea}
             disabled={loading}
           />
           <div style={{ display: "flex", gap: 10, marginTop: 10 }}>
             <button style={primaryBtn} onClick={onConfirm} disabled={!canConfirm}>
-              {loading ? "处理中…" : "Confirm"}
+              Confirm
             </button>
             <button style={ghostBtn} onClick={onClear} disabled={loading && draftText.length === 0}>
               Clear
@@ -70,10 +70,17 @@ export function InputPanel({
       ) : (
         <>
           <div style={lockedBox}>{lockedText}</div>
+
           <div style={{ marginTop: 10 }}>
-            <button style={ghostBtn} onClick={onClear} disabled={loading}>
-              重新粘贴
-            </button>
+            {loading ? (
+              <button style={ghostBtn} disabled>
+                Loading…
+              </button>
+            ) : (
+              <button style={ghostBtn} onClick={onClear}>
+                Clear All
+              </button>
+            )}
           </div>
         </>
       )}

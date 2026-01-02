@@ -6,26 +6,33 @@ import type { AnalyzeResponse } from "@/lib/types";
 type Props = {
   data: AnalyzeResponse;
   error: string | null;
+  loading: boolean;
 };
 
-export function ResultPanel({ data, error }: Props) {
+export function ResultPanel({ data, error, loading}: Props) {
   return ( 
-    <div style={card}> {/*Information display*/}
+    // informatiion display top margin
+    <div style={card}> 
       <div style={rowBetween}>
-        <div style={{ fontWeight: 700 }}>结果</div>
+        <div style={{ fontWeight: 700 }}>Result</div>
         <div style={{ opacity: 0.7, fontSize: 13 }}> 
           {data.vocab.length} vocab · {data.grammar.length} grammar  
         </div>
       </div>
       
-      {error ? <div style={errorBox}>Error: {error}</div> : null} {/*Error message*/}
+      {/*Error message*/}
+      {error ? <div style={errorBox}>Error: {error}</div> : null} 
 
+      {/*Content*/}
       <div style={twoCols}>
         <div>
-          <div style={sectionTitle}>单词</div>
-          <ul style={list}> {/*Branch if there is any vocab data*/}
-            {data.vocab.length === 0 ? ( 
-              <li style={empty}>暂无</li>
+          <div style={sectionTitle}>Vocabulary</div>
+          <ul style={list}> 
+            {loading ? (
+              <li style={empty}>Loading...</li>
+            ) :
+            data.vocab.length === 0 ? ( 
+              <li style={empty}>None</li>
             ) : (
               data.vocab.map((v, i) => (
                 <li key={i} style={item}>
@@ -39,10 +46,13 @@ export function ResultPanel({ data, error }: Props) {
         </div>
 
         <div>
-          <div style={sectionTitle}>语法</div>
+          <div style={sectionTitle}>Grammar</div>
           <ul style={list}>
-            {data.grammar.length === 0 ? (
-              <li style={empty}>暂无</li>
+            {loading ? (
+              <li style={empty}>Loading...</li>
+            ) :
+            data.grammar.length === 0 ? (
+              <li style={empty}>None</li>
             ) : (
               data.grammar.map((g, i) => (
                 <li key={i} style={item}>

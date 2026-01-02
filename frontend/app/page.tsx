@@ -57,7 +57,7 @@ export default function Page() {
           onConfirm={onConfirm}
           onClear={onClear}
         />
-        <ResultPanel data={data} error={error} />
+        <ResultPanel data={data} error={error} loading={loading} />
       </div>
     </main>
   );
